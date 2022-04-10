@@ -1,3 +1,5 @@
+const display = document.getElementById("display");
+
 function add(left, right) {
     return left + right;
 }
@@ -33,3 +35,20 @@ function operate(operator, left, right) {
             break;
     }
 }
+
+function addToDisplay(param) {
+    display.textContent += param;
+}
+
+function initDigits() {
+    for (let index = 0; index <= 9; index++) {
+        const btn = document.getElementById(index);
+        btn.addEventListener("click", () => addToDisplay(index));
+    }
+}
+
+function initButtons() {
+    initDigits();
+}
+
+initButtons();

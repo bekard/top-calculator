@@ -25,6 +25,7 @@ main {
   border:medium solid lightcoral;
   text-align: end;
   font-size: 2em;
+  height: 50px;
 }
 
 #buttons {
