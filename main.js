@@ -36,8 +36,25 @@ function operate(operator, left, right) {
     }
 }
 
+function isOperator(param) {
+    return param === "+" || param === "-" || param === "*" || param === "/";
+}
+
 function addToDisplay(param) {
-    display.textContent += param;
+    const text = display.textContent;
+    if (param == ",") {
+        // найти последнее число и проверить, есть ли в нём разделитель
+        // canInsertSeparator()
+    }
+    else if (isOperator(param)) {
+        const lastCharracter = text[text.length - 1];
+        if (!isOperator(lastCharracter)) {
+            display.textContent += param;
+        }
+    }
+    else {
+        display.textContent += param;
+    }
 }
 
 function evaluateExpression() {
@@ -81,9 +98,7 @@ function initEqual() {
 
 function initSeparator() {
     const separatorBtn = document.getElementById("separator");
-    separatorBtn.addEventListener("click", () => {
-        display.textContent += ",";
-    });
+    separatorBtn.addEventListener("click", () => addToDisplay(","));
 }
 
 function initClear() {
@@ -93,12 +108,21 @@ function initClear() {
     });
 }
 
+function initBacktrace() {
+    const deleteOneBtn = document.getElementById("delete-one");
+    deleteOneBtn.addEventListener("click", () => {
+        let text = display.textContent;
+        display.textContent = text.slice(0, text.length - 1);
+    })
+}
+
 function initButtons() {
     initDigits();
     initOperators();
     initEqual();
     initSeparator();
     initClear();
+    initBacktrace();
 }
 
 initButtons();
