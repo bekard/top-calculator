@@ -42,23 +42,27 @@ function isOperator(param) {
 
 function addToDisplay(param) {
     const text = display.textContent;
-    if (param == ",") {
-        // найти последнее число и проверить, есть ли в нём разделитель
-        // canInsertSeparator()
-    }
-    else if (isOperator(param)) {
-        const lastCharracter = text[text.length - 1];
-        if (!isOperator(lastCharracter)) {
-            display.textContent += param;
-        }
-    }
-    else {
-        display.textContent += param;
-    }
+    display.textContent += param;
 }
 
 function evaluateExpression() {
     return "";
+}
+
+function getLastEntry() {
+    let text = display.textContent;
+    let result = "";
+    for (let i = text.length - 1; i >= 0; i--) {
+        if (isOperator(text[i])) {
+            break;
+        }
+        result += text[i];
+    }
+    return result.split("").reverse().join("");
+}
+
+function getLastChar() {
+    return display.textContent[display.textContent.length - 1];
 }
 
 function initDigits() {
@@ -80,7 +84,13 @@ function initDigits() {
 function initOperators() {
     let initOperator = (id, operator) => {
         const operatorBtn = document.getElementById(id);
-        operatorBtn.addEventListener("click", () => addToDisplay(operator));
+        operatorBtn.addEventListener("click", () => {
+            const text = display.textContent;
+            const lastCharracter = text[text.length - 1];
+            if (!isOperator(lastCharracter) && text.length != 0) {
+                addToDisplay(operator)
+            }
+        });
     };
 
     initOperator("plus", "+");
@@ -98,7 +108,24 @@ function initEqual() {
 
 function initSeparator() {
     const separatorBtn = document.getElementById("separator");
-    separatorBtn.addEventListener("click", () => addToDisplay(","));
+    separatorBtn.addEventListener("click", () => {
+        const lastEntry = getLastEntry();
+        const lastChar = getLastChar();
+        const validConditions = lastEntry.split("").findIndex((char) => { 
+            return char === "," || isOperator(char);
+        }) === -1 && !isOperator(lastChar) && display.textContent.length !== 0;
+
+        if (validConditions) {
+            addToDisplay(",");
+        }
+    });
+}
+
+function initClearEntry() {
+    const clearEntryBtn = document.getElementById("clear-entry");
+    clearEntryBtn.addEventListener("click", () => {
+        display.textContent = getLastEntry();
+    });
 }
 
 function initClear() {
@@ -121,6 +148,7 @@ function initButtons() {
     initOperators();
     initEqual();
     initSeparator();
+    initClearEntry();
     initClear();
     initBacktrace();
 }
