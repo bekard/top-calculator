@@ -45,8 +45,8 @@ function addToDisplay(param) {
     display.textContent += param;
 }
 
-function evaluateExpression() {
-    return "";
+function evaluateExpression(expression) {
+    
 }
 
 function getLastEntry() {
@@ -90,7 +90,7 @@ function initOperators() {
             const validConditions = !isOperator(lastCharracter) 
                 && text.length != 0
                 && lastCharracter != ",";
-                
+
             if (validConditions) {
                 addToDisplay(operator);
             }
@@ -106,7 +106,7 @@ function initOperators() {
 function initEqual() {
     const equalBtn = document.getElementById("equal");
     equalBtn.addEventListener("click", () => {
-        display.textContent = evaluateExpression();
+        display.textContent = evaluateExpression(display.textContent);
     });
 }
 
