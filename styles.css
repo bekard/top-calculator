@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 400;
 }
 
 body {
@@ -7,6 +9,18 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+header {
+  height: 6vh;
+  border-top: medium solid lightblue;
+  border-bottom: medium solid lightblue;
+  background-color: aliceblue;
+  color: cadetblue;
+  font-size: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 main {
@@ -23,17 +37,31 @@ main {
 
 #display {
   margin: 3px;
-  border:medium solid lightcoral;
+  border: medium solid lightblue;
+  background-color: aliceblue;
   text-align: end;
-  font-size: 2em;
-  height: 55px;
+  font-size: 1.8em;
+  height: 56px;
   max-width: 252px;
   overflow: auto;
+  color:cadetblue;
 }
 
 button {
   width: 60px;
   height: 40px;
+  border: medium solid lightblue;
+  background-color: aliceblue;
+  color: cadetblue;
+  font-size: 18px;
+}
+
+button:hover {
+  scale: 1.05;
+}
+
+button:active {
+  background-color: rgb(169, 211, 212);
 }
 
 #delete-one {
