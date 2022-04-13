@@ -215,4 +215,13 @@ function initButtons() {
     initSquareRoot();
 }
 
+function initClculatorStyles() {
+    let rows = document.getElementsByClassName("row");
+    for (let i = 0; i < rows.length; i++) {
+        let item = rows[i];
+        item.setAttribute("style", "margin: 3px");
+    }
+}
+
 initButtons();
+initClculatorStyles();

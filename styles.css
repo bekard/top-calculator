@@ -22,6 +22,7 @@ main {
 }
 
 #display {
+  margin: 3px;
   border:medium solid lightcoral;
   text-align: end;
   font-size: 2em;
@@ -36,5 +37,5 @@ button {
 }
 
 #delete-one {
-  width: 120px;
+  width: 124px;
 }
