@@ -46,10 +46,6 @@ function addToDisplay(param) {
     display.textContent += param;
 }
 
-function printOnDisplay(param) {
-    display.textContent += param;
-}
-
 function evaluateExpression(expression) {
     const separatorIndex = expression.length - 1 - expression.split("").reverse().findIndex((char) => { return isOperator(char)});
     const firstValue = expression.slice(0, separatorIndex);

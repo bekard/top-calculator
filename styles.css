@@ -25,17 +25,16 @@ main {
   border:medium solid lightcoral;
   text-align: end;
   font-size: 2em;
-  height: 60px;
+  height: 55px;
   max-width: 252px;
   overflow: auto;
-  text
-}
-
-#buttons {
-  
 }
 
 button {
   width: 60px;
   height: 40px;
+}
+
+#delete-one {
+  width: 120px;
 }
