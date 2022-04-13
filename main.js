@@ -17,6 +17,8 @@ function divide(left, right) {
 }
 
 function operate(operator, left, right) {
+    left = Number(left);
+    right = Number(right);
     switch (operator) {
         case "+":
             return add(left, right);
@@ -32,7 +34,7 @@ function operate(operator, left, right) {
     
         default:
             console.log(`Undefined operator "${operator}"`);
-            break;
+            return undefined;
     }
 }
 
@@ -46,7 +48,11 @@ function addToDisplay(param) {
 }
 
 function evaluateExpression(expression) {
-    
+    const separatorIndex = expression.length - 1 - expression.split("").reverse().findIndex((char) => { return isOperator(char)});
+    const firstValue = expression.slice(0, separatorIndex);
+    const secondValue = expression.slice(separatorIndex + 1);
+    const operator = expression[separatorIndex];
+    return operate(operator, firstValue, secondValue);
 }
 
 function getLastEntry() {
@@ -92,6 +98,12 @@ function initOperators() {
                 && lastCharracter != ",";
 
             if (validConditions) {
+                let result = evaluateExpression(display.textContent);
+                if (result === undefined) {
+                }
+                else {
+                    display.textContent = result;
+                }
                 addToDisplay(operator);
             }
         });
