@@ -87,8 +87,12 @@ function initOperators() {
         operatorBtn.addEventListener("click", () => {
             const text = display.textContent;
             const lastCharracter = text[text.length - 1];
-            if (!isOperator(lastCharracter) && text.length != 0) {
-                addToDisplay(operator)
+            const validConditions = !isOperator(lastCharracter) 
+                && text.length != 0
+                && lastCharracter != ",";
+                
+            if (validConditions) {
+                addToDisplay(operator);
             }
         });
     };
