@@ -12,7 +12,7 @@ body {
 }
 
 header {
-  height: 6vh;
+  height: 45px;
   border-top: medium solid lightblue;
   border-bottom: medium solid lightblue;
   background-color: aliceblue;
@@ -64,6 +64,6 @@ button:active {
   background-color: rgb(169, 211, 212);
 }
 
-#delete-one {
+#backspace {
   width: 124px;
 }
