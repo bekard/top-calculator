@@ -43,7 +43,10 @@ function isOperator(param) {
 }
 
 function addToDisplay(param) {
-    const text = display.textContent;
+    display.textContent += param;
+}
+
+function printOnDisplay(param) {
     display.textContent += param;
 }
 
@@ -52,6 +55,10 @@ function evaluateExpression(expression) {
     const firstValue = expression.slice(0, separatorIndex);
     const secondValue = expression.slice(separatorIndex + 1);
     const operator = expression[separatorIndex];
+
+    if (secondValue === "") {
+        return firstValue;
+    }
     return operate(operator, firstValue, secondValue);
 }
 
@@ -79,12 +86,21 @@ function initDigits() {
         }
         else {
             btn.addEventListener("click", () => {
-                if (display.textContent !== "") {
+                if (display.textContent !== "" && !isOperator(getLastChar())) {
                     addToDisplay(index);
                 }
             });
         }
     }
+}
+
+function initZeroes() {
+    const zeroesBtn = document.getElementById("000");
+    zeroesBtn.addEventListener("click", () => {
+        if (display.textContent !== "" && !isOperator(getLastChar())) {
+            addToDisplay("000");
+        }
+    });
 }
 
 function initOperators() {
@@ -95,13 +111,11 @@ function initOperators() {
             const lastCharracter = text[text.length - 1];
             const validConditions = !isOperator(lastCharracter) 
                 && text.length != 0
-                && lastCharracter != ",";
+                && lastCharracter != ".";
 
             if (validConditions) {
                 let result = evaluateExpression(display.textContent);
-                if (result === undefined) {
-                }
-                else {
+                if (result !== undefined) {
                     display.textContent = result;
                 }
                 addToDisplay(operator);
@@ -128,11 +142,11 @@ function initSeparator() {
         const lastEntry = getLastEntry();
         const lastChar = getLastChar();
         const validConditions = lastEntry.split("").findIndex((char) => { 
-            return char === "," || isOperator(char);
+            return char === "." || isOperator(char);
         }) === -1 && !isOperator(lastChar) && display.textContent.length !== 0;
 
         if (validConditions) {
-            addToDisplay(",");
+            addToDisplay(".");
         }
     });
 }
@@ -140,7 +154,9 @@ function initSeparator() {
 function initClearEntry() {
     const clearEntryBtn = document.getElementById("clear-entry");
     clearEntryBtn.addEventListener("click", () => {
-        display.textContent = getLastEntry();
+        const lastEntrySize = getLastEntry().length;
+        const text = display.textContent;
+        display.textContent = lastEntrySize === 0 ? "" : text.slice(0, text.length - lastEntrySize);
     });
 }
 
@@ -159,14 +175,48 @@ function initBacktrace() {
     })
 }
 
+function initOneOfX() {
+    const oneOfBtn = document.getElementById("one-of-x");
+    oneOfBtn.addEventListener("click", () => {
+        const result = evaluateExpression(display.textContent);
+        if (result !== undefined) {
+            display.textContent = 1 / result;
+        }
+    });
+}
+
+function initPowerOfTwo() {
+    const powerBtn = document.getElementById("power-of-two");
+    powerBtn.addEventListener("click", () => {
+        const result = evaluateExpression(display.textContent);
+        if (result !== undefined) {
+            display.textContent = result * result;
+        }
+    });
+}
+
+function initSquareRoot() {
+    const rootBtn = document.getElementById("square-root");
+    rootBtn.addEventListener("click", () => {
+        const result = evaluateExpression(display.textContent);
+        if (result !== undefined) {
+            display.textContent = Math.sqrt(result);
+        }
+    });
+}
+
 function initButtons() {
     initDigits();
+    initZeroes();
     initOperators();
     initEqual();
     initSeparator();
     initClearEntry();
     initClear();
     initBacktrace();
+    initOneOfX();
+    initPowerOfTwo()
+    initSquareRoot();
 }
 
 initButtons();
